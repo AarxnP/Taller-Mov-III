@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
                   const Icon(
                     Icons.account_circle,
                     size: 100,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                   const SizedBox(height: 32),
                   const Text(
@@ -48,13 +48,13 @@ class LoginScreen extends StatelessWidget {
                       filled: true,
                       fillColor: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
                       labelText: 'Correo Electrónico',
-                      labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                      labelStyle: const TextStyle(color: Color.fromARGB(255, 250, 250, 250)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color.fromARGB(255, 0, 0, 0), width: 2),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 255, 255), width: 2),
                       ),
                     ),
                   ),
@@ -64,13 +64,13 @@ class LoginScreen extends StatelessWidget {
                       filled: true,
                       fillColor: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
                       labelText: 'Contraseña',
-                      labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                      labelStyle: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color.fromARGB(255, 0, 0, 0), width: 2),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 255, 255), width: 2),
                       ),
                     ),
                     obscureText: true,
