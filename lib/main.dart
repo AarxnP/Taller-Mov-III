@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:pelicula_01/screens/bienvenida_screen.dart';
 import 'package:pelicula_01/screens/catalogo_screen.dart';
 import 'package:pelicula_01/screens/login_screen.dart';
+
 
 
 void main() {

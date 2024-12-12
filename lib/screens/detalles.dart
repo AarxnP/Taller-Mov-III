@@ -24,7 +24,7 @@ class _DetallesPeliculaScreenState extends State<DetallesPeliculaScreen> {
     _youtubeController = YoutubePlayerController(
       initialVideoId: videoId,
       flags: YoutubePlayerFlags(
-        autoPlay: false,
+        autoPlay: true,
         mute: false,
       ),
     );

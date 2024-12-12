@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "441065088110",
+    "firebase_url": "https://app-pokemon-c4102-default-rtdb.firebaseio.com",
+    "project_id": "app-pokemon-c4102",
+    "storage_bucket": "app-pokemon-c4102.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441065088110:android:d28fc0e90a342008aff27f",
+        "android_client_info": {
+          "package_name": "com.example.pelicula_01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441065088110-5emkm4cnkq11fskbeg1mc579q2vmpqdh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQF6Rr2pm-2zfBAqfSGtGPl9Dk5F1ipKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441065088110-5emkm4cnkq11fskbeg1mc579q2vmpqdh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
