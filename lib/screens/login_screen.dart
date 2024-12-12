@@ -149,12 +149,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 16),
                     TextButton(
-                      onPressed: _register,
-                      child: const Text(
-                        '¿No tienes cuenta? Regístrate',
-                        style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 16),
-                      ),
-                    ),
+  onPressed: () {
+    Navigator.pushReplacementNamed(context, '/RegisterScreen'); // Navegar a la pantalla de registro
+  },
+  child: const Text(
+    '¿No tienes cuenta? Regístrate',
+    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 16),
+  ),
+    ),
                   ],
                 ),
               ),
