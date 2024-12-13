@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:video_player/video_player.dart';
 
 class DetallesPeliculaScreen extends StatefulWidget {
   final String titulo;
   final String descripcion;
+  final String videoUrl; // Nueva propiedad para el enlace del video
 
-  DetallesPeliculaScreen({required this.titulo, required this.descripcion});
+  DetallesPeliculaScreen({
+    required this.titulo,
+    required this.descripcion,
+    required this.videoUrl, // Se pasa el enlace del video al constructor
+  });
 
   @override
-  _DetallesPeliculaScreenState createState() => _DetallesPeliculaScreenState();
+  _DetallesPeliculaScreenState createState() =>
+      _DetallesPeliculaScreenState();
 }
 
 class _DetallesPeliculaScreenState extends State<DetallesPeliculaScreen> {
-  late YoutubePlayerController _youtubeController;
+  late VideoPlayerController _videoPlayerController;
 
   @override
   void initState() {
     super.initState();
 
-    // ID del video de YouTube (extraído del enlace)
-    const String videoId = 'aEvrOb4YZ1E'; // Cambia esto por el ID de tu video
-
-    _youtubeController = YoutubePlayerController(
-      initialVideoId: videoId,
-      flags: YoutubePlayerFlags(
-        autoPlay: true,
-        mute: false,
-      ),
-    );
+    // Configuración del controlador de video para Google Drive
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
+      ..initialize().then((_) {
+        setState(() {});
+      });
   }
 
   @override
   void dispose() {
-    _youtubeController.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -60,15 +61,42 @@ class _DetallesPeliculaScreenState extends State<DetallesPeliculaScreen> {
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 16),
-            // Reproductor de YouTube
-            YoutubePlayer(
-              controller: _youtubeController,
-              showVideoProgressIndicator: true,
-              progressColors: ProgressBarColors(
-                playedColor: Colors.red,
-                handleColor: Colors.redAccent,
-              ),
-            ),
+            // Reproductor de video de Google Drive
+            _videoPlayerController.value.isInitialized
+                ? Column(
+                    children: [
+                      Container(
+                        height: 200,
+                        child: VideoPlayer(_videoPlayerController),
+                      ),
+                      VideoProgressIndicator(
+                        _videoPlayerController,
+                        allowScrubbing: true,
+                        colors: VideoProgressColors(
+                          playedColor: Colors.red,
+                          bufferedColor: Colors.grey,
+                          backgroundColor: Colors.black,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          _videoPlayerController.value.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (_videoPlayerController.value.isPlaying) {
+                              _videoPlayerController.pause();
+                            } else {
+                              _videoPlayerController.play();
+                            }
+                          });
+                        },
+                      ),
+                    ],
+                  )
+                : Center(child: CircularProgressIndicator()),
           ],
         ),
       ),
