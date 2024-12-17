@@ -10,7 +10,7 @@ class BienvenidaScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/100000.jpeg'), // Añade tu imagen aquí
+                image: AssetImage('assets/images/100000.jpeg'), // Añade tu imagen aquí
                 fit: BoxFit.cover,
               ),
             ),
