@@ -4,28 +4,25 @@ import 'package:video_player/video_player.dart';
 class DetallesPeliculaScreen extends StatefulWidget {
   final String titulo;
   final String descripcion;
-  final String videoUrl; // Nueva propiedad para el enlace del video
+  final String videoUrl;
 
   DetallesPeliculaScreen({
     required this.titulo,
     required this.descripcion,
-    required this.videoUrl, // Se pasa el enlace del video al constructor
+    required this.videoUrl,
   });
 
   @override
-  _DetallesPeliculaScreenState createState() =>
-      _DetallesPeliculaScreenState();
+  _DetallesPeliculaScreenState createState() => _DetallesPeliculaScreenState();
 }
 
 class _DetallesPeliculaScreenState extends State<DetallesPeliculaScreen> {
   late VideoPlayerController _videoPlayerController;
-  double _volume = 1.0; // Volumen por defecto
+  double _volume = 1.0;
 
   @override
   void initState() {
     super.initState();
-
-    // Configuración del controlador de video para Google Drive
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
       ..initialize().then((_) {
         setState(() {});
@@ -46,11 +43,6 @@ class _DetallesPeliculaScreenState extends State<DetallesPeliculaScreen> {
   }
 
   void _toggleFullScreen() {
-    // Agregar lógica para cambiar de tamaño del video
-    // Esto se puede lograr con paquetes adicionales como `flutter_screenutil` o `system_overlays` 
-    // que permiten cambiar la orientación y la pantalla completa. Si estás en un dispositivo móvil,
-    // Flutter tiene un método nativo para esta funcionalidad.
-    // En este ejemplo, solo simula el cambio de pantalla.
     print('Pantalla completa activada');
   }
 
@@ -58,108 +50,144 @@ class _DetallesPeliculaScreenState extends State<DetallesPeliculaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.titulo),
-        backgroundColor: Colors.black,
+        title: Text(
+          widget.titulo,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0A0F33), Color(0xFF1C1C1E)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+        centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Título de la película
-            Text(
-              widget.titulo,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 0, 0, 0)),
-            ),
-            SizedBox(height: 16),
-            // Descripción de la película
-            Text(
-              widget.descripcion,
-              style: TextStyle(fontSize: 16, color: const Color.fromARGB(179, 0, 0, 0)),
-            ),
-            SizedBox(height: 16),
-            // Reproductor de video de Google Drive
-            _videoPlayerController.value.isInitialized
-                ? Column(
-                    children: [
-                      // Video Player Container
-                      Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(color: Colors.black45, blurRadius: 10),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: VideoPlayer(_videoPlayerController),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      // Video Progress Indicator
-                      VideoProgressIndicator(
-                        _videoPlayerController,
-                        allowScrubbing: true,
-                        colors: VideoProgressColors(
-                          playedColor: Colors.red,
-                          bufferedColor: Colors.grey,
-                          backgroundColor: Colors.black,
-                        ),
-                      ),
-                      // Botones de control de video
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              _videoPlayerController.value.isPlaying
-                                  ? Icons.pause
-                                  : Icons.play_arrow,
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                if (_videoPlayerController.value.isPlaying) {
-                                  _videoPlayerController.pause();
-                                } else {
-                                  _videoPlayerController.play();
-                                }
-                              });
-                            },
-                          ),
-                          // Control de volumen
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.volume_down, color: const Color.fromARGB(255, 0, 0, 0)),
-                                onPressed: () {
-                                  if (_volume > 0) {
-                                    _setVolume(_volume - 0.1);
-                                  }
-                                },
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.volume_up, color: const Color.fromARGB(255, 0, 0, 0)),
-                                onPressed: () {
-                                  if (_volume < 1) {
-                                    _setVolume(_volume + 0.1);
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                          // Botón para pantalla completa
-                          IconButton(
-                            icon: Icon(Icons.fullscreen, color: const Color.fromARGB(255, 0, 0, 0)),
-                            onPressed: _toggleFullScreen,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF0A0F33), Color(0xFF1C1C1E)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Título estilizado
+              Text(
+                widget.titulo,
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 12),
+              // Descripción estilizada
+              Text(
+                widget.descripcion,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white70,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Contenedor de video estilizado
+              _videoPlayerController.value.isInitialized
+                  ? Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black54,
+                            blurRadius: 15,
+                            offset: Offset(0, 6),
                           ),
                         ],
                       ),
-                    ],
-                  )
-                : Center(child: CircularProgressIndicator()),
-          ],
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: AspectRatio(
+                          aspectRatio: _videoPlayerController.value.aspectRatio,
+                          child: VideoPlayer(_videoPlayerController),
+                        ),
+                      ),
+                    )
+                  : const Center(child: CircularProgressIndicator()),
+              const SizedBox(height: 12),
+              // Indicador de progreso
+              _videoPlayerController.value.isInitialized
+                  ? VideoProgressIndicator(
+                      _videoPlayerController,
+                      allowScrubbing: true,
+                      colors: const VideoProgressColors(
+                        playedColor: Colors.redAccent,
+                        bufferedColor: Colors.grey,
+                        backgroundColor: Colors.black45,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              const SizedBox(height: 16),
+              // Controles de video
+              _videoPlayerController.value.isInitialized
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Botón Play/Pause
+                        IconButton(
+                          icon: Icon(
+                            _videoPlayerController.value.isPlaying
+                                ? Icons.pause_circle_filled
+                                : Icons.play_circle_filled,
+                            size: 48,
+                            color: Colors.redAccent,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              if (_videoPlayerController.value.isPlaying) {
+                                _videoPlayerController.pause();
+                              } else {
+                                _videoPlayerController.play();
+                              }
+                            });
+                          },
+                        ),
+                        // Control de volumen
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.volume_down, color: Colors.white70),
+                              onPressed: () => _setVolume((_volume - 0.1).clamp(0.0, 1.0)),
+                            ),
+                            const SizedBox(width: 8),
+                            IconButton(
+                              icon: const Icon(Icons.volume_up, color: Colors.white70),
+                              onPressed: () => _setVolume((_volume + 0.1).clamp(0.0, 1.0)),
+                            ),
+                          ],
+                        ),
+                        // Botón de pantalla completa
+                        IconButton(
+                          icon: const Icon(Icons.fullscreen, color: Colors.white70, size: 30),
+                          onPressed: _toggleFullScreen,
+                        ),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
+            ],
+          ),
         ),
       ),
     );

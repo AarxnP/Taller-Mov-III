@@ -6,24 +6,21 @@ class BienvenidaScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Imagen de fondo desde un enlace
+          // Fondo con imagen y degradado oscuro
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                  'https://img.lovepik.com/background/20211021/large/lovepik-vintage-texture-background-image_401245438.jpg', // Cambia este enlace si lo necesitas
-                ),
+                image: AssetImage('images/100000.jpeg'), // Añade tu imagen aquí
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // Sombra para oscurecer el fondo
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.black.withOpacity(0.7),
-                  Colors.black.withOpacity(0.4),
+                  Colors.black.withOpacity(0.7), // Oscurece la parte inferior
+                  Colors.black.withOpacity(0.9),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -34,75 +31,89 @@ class BienvenidaScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // Texto principal
                 const Text(
-                  '¡Bienvenido ALLPeliculas!',
+                  'Empieza a disfrutar',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10.0,
-                        color: Colors.black45,
-                        offset: Offset(2, 2),
-                      ),
-                    ],
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Descubre una experiencia increíble con nuestra app. Gestiona tus películas favoritas y disfrútalas en cualquier momento, hora y lugar. ¡Estamos encantados de tenerte aquí!',
+                  'Prepárate para sumergirte en las historias más increíbles del cine y la televisión.',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     color: Colors.white70,
+                    height: 1.5,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
+                // Botón de Suscribirse
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pushNamed(context, '/RegisterScreen');
                   },
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white, // Botón blanco
                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    backgroundColor: Colors.blueAccent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    elevation: 5,
                   ),
                   child: const Text(
-                    'Iniciar Sesión',
+                    'Suscríbete ahora',
                     style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 const SizedBox(height: 16),
+                // Botón de Iniciar Sesión
                 OutlinedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/RegisterScreen');
+                    Navigator.pushNamed(context, '/login');
                   },
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     side: const BorderSide(color: Colors.white),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                   child: const Text(
-                    'Registrarse',
+                    'Iniciar sesión',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
+                const SizedBox(height: 30),
+                // Enlace de privacidad y legales
+                GestureDetector(
+                  onTap: () {
+                    // Acción para abrir términos y condiciones
+                  },
+                  child: const Text(
+                    'Privacidad y Legales',
+                    style: TextStyle(
+                      color: Colors.blueAccent,
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
               ],
             ),
           ),

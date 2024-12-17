@@ -39,13 +39,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Usuario registrado correctamente')),
+          const SnackBar(
+            content: Text(
+              'Usuario registrado correctamente',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.green,
+          ),
         );
 
         Navigator.pushReplacementNamed(context, '/catalogo');
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
+          SnackBar(
+            content: Text(
+              'Error: ${e.toString()}',
+              style: const TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.redAccent,
+          ),
         );
       } finally {
         setState(() {
@@ -58,82 +70,106 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registro de Usuario'),
-        backgroundColor: const Color(0xFF1B1B1B), // Fondo negro
-      ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF000000), Color(0xFF2B2B2B)], // Gradiente oscuro
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+  gradient: LinearGradient(
+    colors: [
+      Color(0xFF0F0F23), // Azul oscuro profundo
+      Color(0xFF181830), // Azul ligeramente más claro
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  ),
+),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Icon(
+                    Icons.account_circle_rounded,
+                    size: 100,
+                    color: Color(0xFF9B51E0), // Morado vibrante
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Crea una cuenta',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Regístrate y disfruta del mejor contenido',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  _buildTextField(_nameController, 'Nombre', Icons.person),
+                  const SizedBox(height: 16),
+                  _buildTextField(_surnameController, 'Apellido', Icons.person_outline),
+                  const SizedBox(height: 16),
+                  _buildTextField(_ageController, 'Edad', Icons.cake, inputType: TextInputType.number),
+                  const SizedBox(height: 16),
+                  _buildTextField(
+                    _emailController,
+                    'Correo Electrónico',
+                    Icons.email,
+                    inputType: TextInputType.emailAddress,
+                  ),
+                  const SizedBox(height: 16),
+                  _buildTextField(_passwordController, 'Contraseña', Icons.lock, isPassword: true),
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: _isLoading ? null : _register,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      backgroundColor: const Color(0xFF9B51E0), // Morado
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    child: _isLoading
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text('Registrar Usuario'),
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                    child: const Text(
+                      '¿Ya tienes cuenta? Inicia sesión aquí',
+                      style: TextStyle(color: Color(0xFF9B51E0), fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Crea tu cuenta',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber, // Acento dorado
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      _buildTextField(_nameController, 'Nombre', Icons.person),
-                      const SizedBox(height: 16),
-                      _buildTextField(_surnameController, 'Apellido', Icons.person_outline),
-                      const SizedBox(height: 16),
-                      _buildTextField(_ageController, 'Edad', Icons.cake, inputType: TextInputType.number),
-                      const SizedBox(height: 16),
-                      _buildTextField(_emailController, 'Correo Electrónico', Icons.email, inputType: TextInputType.emailAddress),
-                      const SizedBox(height: 16),
-                      _buildTextField(_passwordController, 'Contraseña', Icons.lock, isPassword: true),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _register,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  backgroundColor: const Color(0xFFFFD700), // Dorado brillante
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                child: _isLoading
-                    ? const CircularProgressIndicator(color: Colors.black)
-                    : const Text(
-                        'Registrar Usuario',
-                        style: TextStyle(color: Colors.black), // Texto negro para contraste
-                      ),
-              ),
-            ),
-          ],
         ),
       ),
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label, IconData icon,
-      {bool isPassword = false, TextInputType inputType = TextInputType.text}) {
+  Widget _buildTextField(
+    TextEditingController controller,
+    String label,
+    IconData icon, {
+    bool isPassword = false,
+    TextInputType inputType = TextInputType.text,
+  }) {
     return TextFormField(
       controller: controller,
       obscureText: isPassword,
@@ -143,15 +179,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         filled: true,
         fillColor: Colors.grey.withOpacity(0.2), // Fondo gris translúcido
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.white),
-        prefixIcon: Icon(icon, color: Colors.amber), // Íconos dorados
+        labelStyle: const TextStyle(color: Colors.white70),
+        prefixIcon: Icon(icon, color: const Color(0xFF9B51E0)), // Íconos morados
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.amber, width: 2), // Borde dorado
+          borderSide: const BorderSide(color: Color(0xFF9B51E0), width: 2), // Borde morado
         ),
       ),
       validator: (value) {
