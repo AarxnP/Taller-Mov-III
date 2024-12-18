@@ -154,9 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushReplacementNamed(context, '/RegisterScreen');
                     },
                     child: const Text(
-                      'Conecta a tu proveedor',
+                      'No tienes cuenta? Registrate Aqui!',
                       style: TextStyle(
-                        color: Colors.white70,
+                        color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 16,
                       ),
                     ),

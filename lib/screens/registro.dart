@@ -72,15 +72,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-  gradient: LinearGradient(
-    colors: [
-      Color(0xFF0F0F23), // Azul oscuro profundo
-      Color(0xFF181830), // Azul ligeramente más claro
-    ],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  ),
-),
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF061A48), // Azul oscuro (parte superior)
+              Color(0xFF12245A), // Azul ligeramente más claro (parte inferior)
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -93,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const Icon(
                     Icons.account_circle_rounded,
                     size: 100,
-                    color: Color(0xFF9B51E0), // Morado vibrante
+                    color: Color(0xFF9B51E0), // Ícono morado
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -119,7 +119,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 16),
                   _buildTextField(_surnameController, 'Apellido', Icons.person_outline),
                   const SizedBox(height: 16),
-                  _buildTextField(_ageController, 'Edad', Icons.cake, inputType: TextInputType.number),
+                  _buildTextField(
+                    _ageController, 'Edad', Icons.cake, inputType: TextInputType.number),
                   const SizedBox(height: 16),
                   _buildTextField(
                     _emailController,
@@ -128,17 +129,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     inputType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 16),
-                  _buildTextField(_passwordController, 'Contraseña', Icons.lock, isPassword: true),
+                  _buildTextField(
+                    _passwordController, 'Contraseña', Icons.lock, isPassword: true),
                   const SizedBox(height: 32),
                   ElevatedButton(
                     onPressed: _isLoading ? null : _register,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      backgroundColor: const Color(0xFF9B51E0), // Morado
+                      backgroundColor: const Color(0xFF9B51E0), // Botón con el morado de la imagen
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      textStyle: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                     child: _isLoading
                         ? const CircularProgressIndicator(color: Colors.white)
@@ -163,6 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  // Método _buildTextField
   Widget _buildTextField(
     TextEditingController controller,
     String label,
